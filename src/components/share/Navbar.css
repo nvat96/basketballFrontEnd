@@ -1,0 +1,31 @@
+.fixed-top, .title{
+    background-color: #3C096C;
+    color: white;
+    justify-content: center;
+}
+.row .nav{
+    justify-content: left;
+}
+.col-sm-12{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.title{
+    font-size: xx-large;
+}
+
+.logo{
+    max-width: 70px;
+    height: auto;
+}
+.nav-link{
+    color: white;
+}
+.nav-link:hover{
+    color: #9D4EDD !important;
+}
+
+.dropdown-item:hover{
+    background-color: #9D4EDD !important;
+    color: white !important;
+}
