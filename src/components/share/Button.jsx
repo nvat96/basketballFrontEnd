@@ -1,21 +1,21 @@
 import React from "react";
 
-export default function Button({ text, link, textColor, bgColor }) {
+
+export default function Button({ text, textColor, bgColor, border }) {
+  
   return (
-    <a href={link}>
-      <button
-        className="btn"
-        style={{ backgroundColor: bgColor, color: textColor }}
-      >
-        {text}
-      </button>
-    </a>
-    
+    <button
+      
+      className="btn btn-primary"
+      style={{ backgroundColor: bgColor, color: textColor, border: border}}
+    >
+      {text}
+    </button>
   );
 }
 Button.defaultProps = {
-  link: "http://localhost:3000/",
   textColor: "white",
-  bgColor: '#7B2CBF',
-  text: "Button"
+  bgColor: "#7B2CBF",
+  text: "Button",
+  border: "none"
 };

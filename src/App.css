@@ -1,0 +1,37 @@
+.container{
+    margin-top: 100px;
+}
+hr {
+    border: none;
+    height: 2px;
+    color: black;
+    background-color:black; 
+}
+thead tr{
+    color: white;
+    background-color: #420177;
+}
+tbody tr:nth-of-type(odd){
+    background-color: #F1E5FD;
+    color: black;
+    
+}
+tbody tr:nth-of-type(even){
+    background-color: #E4CBFB;
+    color: black;
+    
+}
+.table td{
+    vertical-align:middle !important;
+}
+tbody tr:hover{
+    background-color: #590DA0;
+    color: white;
+}
+.coming-soon{
+    margin-top: 100px;
+    height: auto; 
+    width: auto; 
+    max-width: 500px !important; 
+    max-height: 500px !important;
+}
