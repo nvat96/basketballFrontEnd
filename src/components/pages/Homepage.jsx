@@ -8,7 +8,7 @@ export default function Homepage() {
         id="carouselExampleIndicators"
         className="carousel slide carousel-fade"
         data-ride="carousel"
-        data-interval='3000'
+        data-interval="3000"
       >
         <ol className="carousel-indicators">
           <li
@@ -26,25 +26,53 @@ export default function Homepage() {
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="d-block w-100" src="./picture1.jpg" alt="First slide" />
+            <img
+              className="d-block w-100"
+              src="./picture1.jpg"
+              alt="First slide"
+            />
           </div>
           <div className="carousel-item">
-            <img className="d-block w-100" src="./picture2.jpg" alt="Second slide" />
+            <img
+              className="d-block w-100"
+              src="./picture2.jpg"
+              alt="Second slide"
+            />
           </div>
           <div className="carousel-item">
-            <img className="d-block w-100" src="./picture3.jpg" alt="Third slide" />
+            <img
+              className="d-block w-100"
+              src="./picture3.jpg"
+              alt="Third slide"
+            />
           </div>
           <div className="carousel-item">
-            <img className="d-block w-100" src="./picture4.jpg" alt="Fourth slide" />
+            <img
+              className="d-block w-100"
+              src="./picture4.jpg"
+              alt="Fourth slide"
+            />
           </div>
           <div className="carousel-item">
-            <img className="d-block w-100" src="./picture5.jpg" alt="Fifth slide" />
+            <img
+              className="d-block w-100"
+              src="./picture5.jpg"
+              alt="Fifth slide"
+            />
           </div>
           <div className="carousel-item">
-            <img className="d-block w-100" src="./picture6.jpg" alt="Sixth slide" />
+            <img
+              className="d-block w-100"
+              src="./picture6.jpg"
+              alt="Sixth slide"
+            />
           </div>
           <div className="carousel-item">
-            <img className="d-block w-100" src="./picture7.jpg" alt="Seventh slide" />
+            <img
+              className="d-block w-100"
+              src="./picture7.jpg"
+              alt="Seventh slide"
+            />
           </div>
         </div>
         <a
@@ -53,7 +81,10 @@ export default function Homepage() {
           role="button"
           data-slide="prev"
         >
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
           <span className="sr-only">Previous</span>
         </a>
         <a
@@ -62,7 +93,10 @@ export default function Homepage() {
           role="button"
           data-slide="next"
         >
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
           <span className="sr-only">Next</span>
         </a>
       </div>

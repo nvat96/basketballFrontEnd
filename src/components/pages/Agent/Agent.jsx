@@ -62,7 +62,11 @@ export default function Agent() {
                   <a href="http://localhost:3000/agent">
                     <button
                       className="btn btn-primary"
-                      style={{ backgroundColor: "#6D095A", color: "white", border:"none" }}
+                      style={{
+                        backgroundColor: "#6D095A",
+                        color: "white",
+                        border: "none",
+                      }}
                       onClick={() => {
                         handleDelete(agent.id);
                       }}

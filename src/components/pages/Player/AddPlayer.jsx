@@ -8,10 +8,10 @@ const AddPlayer = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [gender, setGender] = useState("MALE");
+  const [gender, setGender] = useState("");
   const [nationality, setNationality] = useState("");
   const [startedDate, setStartedDate] = useState("");
-  const [typeOfPlayer, setTypeOfPlayer] = useState("ROOKIE");
+  const [typeOfPlayer, setTypeOfPlayer] = useState("");
   const [salaryExpected, setSalaryExpected] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
@@ -242,9 +242,9 @@ const AddPlayer = () => {
               onClick={(e) => savePlayer(e)}
             /> */}
             <span>&nbsp;</span>
-            {/* <a href="http://localhost:3000">
+            <a href="http://localhost:3000">
               <Button bgColor={"#1A096B"} text={"Return"} />
-            </a> */}
+            </a>
           </div>
         </div>
       </form>

@@ -53,7 +53,7 @@ export default function Player() {
                 <td>{player.playerName}</td>
                 <td className="d-flex justify-content-center">
                   <a href={`http://localhost:3000/player/view/${player.id}`}>
-                  <Button text={"View"} bgColor={"#093B6B"} />
+                    <Button text={"View"} bgColor={"#093B6B"} />
                   </a>
                   {/* <Button text={"View"} bgColor={"#093B6B"} /> */}
                   <span>&nbsp;</span>
@@ -65,7 +65,11 @@ export default function Player() {
                   <a href="http://localhost:3000/player">
                     <button
                       className="btn btn-primary"
-                      style={{ backgroundColor: "#6D095A", color: "white", border:"none" }}
+                      style={{
+                        backgroundColor: "#6D095A",
+                        color: "white",
+                        border: "none",
+                      }}
                       onClick={() => {
                         handleDelete(player.id);
                       }}
