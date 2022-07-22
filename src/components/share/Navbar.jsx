@@ -43,7 +43,7 @@ function Navbar() {
                       className="dropdown-item"
                       href="http://localhost:3000/nothing"
                     >
-                      Team Achivement
+                      Team Achievement
                     </a>
                     <a
                       className="dropdown-item"
