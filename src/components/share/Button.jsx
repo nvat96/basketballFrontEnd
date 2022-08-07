@@ -1,15 +1,18 @@
 import React from "react";
 
-
-export default function Button({ text, textColor, bgColor, border, onClick }) {
-  
+export default function Button(props) {
+  const clickEvent = () => {};
   return (
     <button
-      onClick={onClick}
       className="btn btn-primary"
-      style={{ backgroundColor: bgColor, color: textColor, border: border}}
+      style={{
+        backgroundColor: props.bgColor,
+        color: props.textColor,
+        border: props.border,
+      }}
+      onClick={clickEvent}
     >
-      {text}
+      {props.text}
     </button>
   );
 }
@@ -17,5 +20,5 @@ Button.defaultProps = {
   textColor: "white",
   bgColor: "#7B2CBF",
   text: "Button",
-  border: "none"
+  border: "none",
 };

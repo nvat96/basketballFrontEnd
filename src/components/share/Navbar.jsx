@@ -156,8 +156,9 @@ function Navbar() {
               <Button text="Sign in" />
             </a>
           </div>
+
         </div>
-      </div>
+     </div>
     </>
   );
 }

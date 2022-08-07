@@ -1,25 +1,26 @@
-.fixed-top, .title{
-    background-color: #3C096C;
-    color: white;
+.fixed-top,
+.title {
+  background-color: #3c096c;
+  color: white;
+}
+.title {
+  font-size: xx-large;
+}
 
-}
-.title{
-    font-size: xx-large;
-}
 
 .logo{
     max-width: 11vh;
     height: auto;
-    
-}
-.nav-link{
-    color: white;
-}
-.nav-link:hover{
-    color: #9D4EDD !important;
 }
 
-.dropdown-item:hover{
-    background-color: #9D4EDD !important;
-    color: white !important;
+.nav-link {
+  color: white;
+}
+.nav-link:hover {
+  color: #9d4edd !important;
+}
+
+.dropdown-item:hover {
+  background-color: #9d4edd !important;
+  color: white !important;
 }

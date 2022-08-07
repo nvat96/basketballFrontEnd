@@ -1,9 +1,12 @@
+
 import React, { useEffect, useState } from "react";
+
 import { useLocation } from "react-router-dom";
 import playerService from "../../services/player.service";
 import Navbar from "../../share/Navbar.jsx";
 
 const ViewPlayer = () => {
+
   const urlString = useLocation().pathname;
   const id = urlString.slice(urlString.lastIndexOf("/") + 1, urlString.length);
   const [player, setPlayer] = useState({});
@@ -56,11 +59,11 @@ const ViewPlayer = () => {
           </tr>
           <tr>
             <td>Height</td>
-            <td>{player.height}</td>
+            <td>{player.height} m</td>
           </tr>
           <tr>
             <td>Weight</td>
-            <td>{player.weight}</td>
+            <td>{player.weight} kg</td>
           </tr>
         </tbody>
       </table>

@@ -23,14 +23,16 @@ export default function Player() {
   }, []);
   const handleDelete = (id) => {
     console.log("Printing id", id);
-    playerService.remove(id).then((response) => {
-      console.log(response.data);
-      
-    }).then(() => {
-      playerService.getAll().then((response) => {
-        setPlayer(response.data);
+    playerService
+      .remove(id)
+      .then((response) => {
+        console.log(response.data);
       })
-    });
+      .then(() => {
+        playerService.getAll().then((response) => {
+          setPlayer(response.data);
+        });
+      });
   };
   return (
     <div className="container-fluid">
@@ -58,23 +60,26 @@ export default function Player() {
                 <td>{player.playerName}</td>
                 <td className="d-flex justify-content-center">
                   <a href={`/player/view/${player.id}`}>
-                  <Button text={"View"} bgColor={"#093B6B"} />
+                    <Button text={"View"} bgColor={"#093B6B"} />
                   </a>
                   <span>&nbsp;</span>
                   <a href={`/player/update/${player.id}`}>
                     <Button text={"Update"} bgColor={"#09186D"} />
                   </a>
                   <span>&nbsp;</span>
-                    <button
-                      className="btn btn-primary"
-                      style={{ backgroundColor: "#6D095A", color: "white", border:"none" }}
-                      onClick={() => {
-                        handleDelete(player.id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  
+                  <button
+                    className="btn btn-primary"
+                    style={{
+                      backgroundColor: "#6D095A",
+                      color: "white",
+                      border: "none",
+                    }}
+                    onClick={() => {
+                      handleDelete(player.id);
+                    }}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
