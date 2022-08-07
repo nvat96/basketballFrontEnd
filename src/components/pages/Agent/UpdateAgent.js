@@ -1,49 +1,48 @@
-import { useState } from "react";
-import playerService from "../../services/player.service";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import agentService from "../../services/agent.service";
 import Navbar from "../../share/Navbar";
 
-const AddPlayer = () => {
+export default function UpdateAgent() {
+  const urlString = useLocation().pathname;
+  const id = urlString.slice(urlString.lastIndexOf("/") + 1, urlString.length);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [gender, setGender] = useState("MALE");
+  const [gender, setGender] = useState("");
   const [nationality, setNationality] = useState("");
-  const [startedDate, setStartedDate] = useState("");
-  const [typeOfPlayer, setTypeOfPlayer] = useState("ROOKIE");
-  const [salaryExpected, setSalaryExpected] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
 
-  const handleCreate = (e) => {
-    e.preventDefault();
-    const player = {
-      firstName: firstName,
-      lastName: lastName,
-      dateOfBirth: dateOfBirth,
-      gender: gender,
-      nationality: nationality,
-      startedDate: startedDate,
-      typeOfPlayer: typeOfPlayer,
-      salaryExpected: salaryExpected,
-      height: height,
-      weight: weight,
-    };
-
-    playerService
-      .create(player)
-      .then((response) => {
-        console.log("Player added successfully", response.data);
-      })
-      .catch((error) => {
-        console.log("Something went wrong", error);
-      });
+  const agent = {
+    firstName: firstName,
+    lastName: lastName,
+    gender: gender,
+    nationality: nationality,
+    dateOfBirth: dateOfBirth,
+    phoneNumber: phoneNumber,
+    email: email,
   };
+  useEffect(() => {
+    agentService.get(id).then((response) => {
+      setFirstName(response.data.firstName);
+      setLastName(response.data.lastName);
+      setGender(response.data.gender);
+      setNationality(response.data.nationality);
+      setDateOfBirth(response.data.dateOfBirth);
+      setPhoneNumber(response.data.phoneNumber);
+      setEmail(response.data.email);
+    });
+  }, []);
 
+  const handleUpdate = () => {
+    agentService.update(id, agent);
+  };
   return (
     <>
       <Navbar />
       <form className="container-fluid">
-        <h2 className="text-center">Add Player</h2>
+        <h2 className="text-center">Update Agent</h2>
         <hr />
         <div className="row">
           <div className="col-6">
@@ -77,16 +76,6 @@ const AddPlayer = () => {
                 onChange={(e) => setDateOfBirth(e.target.value)}
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="nationality">Nationality</label>
-              <input
-                type="text"
-                className="form-control col"
-                id="nationality"
-                value={nationality}
-                onChange={(e) => setNationality(e.target.value)}
-              />
-            </div>
             <div>
               <p>Gender</p>
               <div className="form-check-inline">
@@ -96,8 +85,8 @@ const AddPlayer = () => {
                     className="form-check-input"
                     name="optradio"
                     value={"MALE"}
-                    checked={gender === "MALE"}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "MALE"}
                   />
                   Male
                 </label>
@@ -109,8 +98,8 @@ const AddPlayer = () => {
                     className="form-check-input"
                     name="optradio"
                     value={"FEMALE"}
-                    checked={gender === "FEMALE"}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "FEMALE"}
                   />
                   Female
                 </label>
@@ -122,8 +111,8 @@ const AddPlayer = () => {
                     className="form-check-input"
                     name="optradio"
                     value={"NON_BINARY"}
-                    checked={gender === "NON_BINARY"}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "NON_BINARY"}
                   />
                   Non-binary
                 </label>
@@ -132,82 +121,54 @@ const AddPlayer = () => {
           </div>
           <div className="col-6">
             <div className="form-group">
-              <label>Started date</label>
-              <input
-                type="date"
-                className="form-control col"
-                id="startedDate"
-                value={startedDate}
-                onChange={(e) => setStartedDate(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Type of player</label>
-              <select
-                className="form-control col form-select"
-                name="type-of-player"
-                id="type-of-player"
-                value={typeOfPlayer}
-                onChange={(e) => setTypeOfPlayer(e.target.value)}
-              >
-                <option value="ROOKIE">Rookie</option>
-                <option value="STANDARD">Standard</option>
-                <option value="VETERAN">Veteran</option>
-                <option value="TWO_WAY">Two way</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Salary expected</label>
+              <label>Nationality</label>
               <input
                 type="text"
                 className="form-control col"
-                id="salaryExpected"
-                value={salaryExpected}
-                onChange={(e) => setSalaryExpected(e.target.value)}
+                id="nationality"
+                value={nationality}
+                onChange={(e) => setNationality(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label>Height</label>
+              <label>Phone number</label>
               <input
                 type="text"
                 className="form-control col"
-                id="height"
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
+                id="phoneNumber"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label>Weight</label>
+              <label>Email</label>
               <input
                 type="text"
                 className="form-control col"
-                id="weight"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
-
           <div className="container d-flex justify-content-center mt-0">
-            <a href="/player">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#5D096B",
-                  color: "white",
-                  border: "none",
-                }}
-                onClick={(e) => handleCreate(e)}
-              >
-                Save
-              </button>
-            </a>
+            <button
+              type="submit"
+              className="btn"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+              onClick={(e) => handleUpdate(e)}
+            >
+              Update
+            </button>
             <span>&nbsp;</span>
-            <a href="/player">
+            <a href="/agent">
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn"
                 style={{
                   backgroundColor: "#5D096B",
                   color: "white",
@@ -222,5 +183,4 @@ const AddPlayer = () => {
       </form>
     </>
   );
-};
-export default AddPlayer;
+}

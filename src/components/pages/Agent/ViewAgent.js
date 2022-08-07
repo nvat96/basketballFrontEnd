@@ -1,71 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import playerService from "../../services/player.service";
-import Navbar from "../../share/Navbar.jsx";
-
-const ViewPlayer = () => {
+import agentService from "../../services/agent.service";
+import Navbar from "../../share/Navbar";
+export default function ViewAgent() {
   const urlString = useLocation().pathname;
   const id = urlString.slice(urlString.lastIndexOf("/") + 1, urlString.length);
-  const [player, setPlayer] = useState({});
+  const [agent, setAgent] = useState({});
   useEffect(() => {
-    playerService.get(id).then((response) => {
-      setPlayer(response.data);
+    agentService.get(id).then((response) => {
+      setAgent(response.data);
     });
   }, []);
   return (
     <>
       <Navbar />
-      <h2 className="text-center">View Player</h2>
+      <h2 className="text-center">View Agent</h2>
       <table className="table table-bordered">
         <tbody>
           <tr>
             <td>ID</td>
-            <td>{player.id}</td>
+            <td>{agent.id}</td>
           </tr>
           <tr>
             <td>First name</td>
-            <td>{player.firstName}</td>
+            <td>{agent.firstName}</td>
           </tr>
           <tr>
             <td>Last name</td>
-            <td>{player.lastName}</td>
-          </tr>
-          <tr>
-            <td>Date of birth</td>
-            <td>{player.dateOfBirth}</td>
+            <td>{agent.lastName}</td>
           </tr>
           <tr>
             <td>Gender</td>
-            <td>{player.gender}</td>
+            <td>{agent.gender}</td>
           </tr>
           <tr>
             <td>Nationality</td>
-            <td>{player.nationality}</td>
+            <td>{agent.nationality}</td>
           </tr>
           <tr>
-            <td>Started date</td>
-            <td>{player.startedDate}</td>
+            <td>Date of birth</td>
+            <td>{agent.dateOfBirth}</td>
           </tr>
           <tr>
-            <td>Type of player</td>
-            <td>{player.typeOfPlayer}</td>
+            <td>Phone number</td>
+            <td>{agent.phoneNumber}</td>
           </tr>
           <tr>
-            <td>Salary expected</td>
-            <td>{player.salaryExpected}</td>
-          </tr>
-          <tr>
-            <td>Height</td>
-            <td>{player.height}</td>
-          </tr>
-          <tr>
-            <td>Weight</td>
-            <td>{player.weight}</td>
+            <td>Email</td>
+            <td>{agent.email}</td>
           </tr>
         </tbody>
       </table>
       <div className="container d-flex justify-content-center mt-0">
-        <a href="/player">
+        <a href="/agent">
           <button
             className="btn"
             style={{
@@ -80,6 +67,4 @@ const ViewPlayer = () => {
       </div>
     </>
   );
-};
-
-export default ViewPlayer;
+}

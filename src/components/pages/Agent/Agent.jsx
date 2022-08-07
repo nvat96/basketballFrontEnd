@@ -6,7 +6,7 @@ import Navbar from "../../share/Navbar.jsx";
 
 export default function Agent() {
   const [agent, setAgent] = useState([]);
-  const init = () => {
+  useEffect(() => {
     agentService
       .getAll()
       .then((response) => {
@@ -16,22 +16,26 @@ export default function Agent() {
       .catch((error) => {
         console.log("Something went wrong", error);
       });
-  };
-  useEffect(() => {
-    init();
   }, []);
   const handleDelete = (id) => {
     console.log("Printing id", id);
-    agentService.remove(id).then((response) => {
-      console.log("Agent deleted successfully", response.data);
-    });
+    agentService
+      .remove(id)
+      .then((response) => {
+        console.log("Agent deleted successfully", response.data);
+      })
+      .then(() => {
+        agentService.getAll().then((response) => {
+          setAgent(response.data);
+        });
+      });
   };
   return (
     <div className="container-fluid">
       <Navbar></Navbar>
       <h2 className="text-center">Agents List</h2>
       <div className="container d-flex justify-content-center mt-0">
-        <a href="http://localhost:3000/agent/add">
+        <a href="/agent/add">
           <Button text={"Add agent"} bgColor={"#590DA0"} />
         </a>
       </div>
@@ -53,30 +57,28 @@ export default function Agent() {
                 <td>{agent.agentName}</td>
                 <td>{agent.email}</td>
                 <td className="d-flex justify-content-center">
-                  <Button text={"View"} bgColor={"#093B6B"} />
+                  <a href={`/agent/view/${agent.id}`}>
+                    <Button text={"View"} bgColor={"#093B6B"} />
+                  </a>
+
                   <span>&nbsp;</span>
-                  <a href={`http://localhost:3000/agent/update/${agent.id}`}>
+                  <a href={`/agent/update/${agent.id}`}>
                     <Button text={"Update"} bgColor={"#09186D"} />
                   </a>
                   <span>&nbsp;</span>
-                  <a href="http://localhost:3000/agent">
-                    <button
-                      className="btn btn-primary"
-                      style={{ backgroundColor: "#6D095A", color: "white", border:"none" }}
-                      onClick={() => {
-                        handleDelete(agent.id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </a>
-                  {/* <Button
-                    text={"Delete"}
-                    bgColor={"#6D095A"}
+                  <button
+                    className="btn btn-primary"
+                    style={{
+                      backgroundColor: "#6D095A",
+                      color: "white",
+                      border: "none",
+                    }}
                     onClick={() => {
                       handleDelete(agent.id);
                     }}
-                  /> */}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -84,7 +86,7 @@ export default function Agent() {
         </table>
       </div>
       <div className="container d-flex justify-content-center mt-0">
-        <a href="http://localhost:3000/agent">
+        <a href="/agent">
           <Button text={"Back to top"} bgColor={"#590DA0"} />
         </a>
       </div>

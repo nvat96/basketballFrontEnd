@@ -1,20 +1,22 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import playerService from "../../services/player.service";
 import Navbar from "../../share/Navbar";
 
-const AddPlayer = () => {
+export default function UpdatePlayer() {
+  const urlString = useLocation().pathname;
+  const id = urlString.slice(urlString.lastIndexOf("/") + 1, urlString.length);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [gender, setGender] = useState("MALE");
+  const [gender, setGender] = useState("");
   const [nationality, setNationality] = useState("");
   const [startedDate, setStartedDate] = useState("");
-  const [typeOfPlayer, setTypeOfPlayer] = useState("ROOKIE");
+  const [typeOfPlayer, setTypeOfPlayer] = useState("");
   const [salaryExpected, setSalaryExpected] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
-
-  const handleCreate = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
     const player = {
       firstName: firstName,
@@ -30,20 +32,33 @@ const AddPlayer = () => {
     };
 
     playerService
-      .create(player)
+      .update(id, player)
       .then((response) => {
-        console.log("Player added successfully", response.data);
+        console.log("Player updated successfully", response.data);
       })
       .catch((error) => {
         console.log("Something went wrong", error);
       });
   };
-
+  useEffect(() => {
+    playerService.get(id).then((response) => {
+      setFirstName(response.data.firstName);
+      setLastName(response.data.lastName);
+      setDateOfBirth(response.data.dateOfBirth);
+      setGender(response.data.gender);
+      setNationality(response.data.nationality);
+      setStartedDate(response.data.startedDate);
+      setTypeOfPlayer(response.data.typeOfPlayer);
+      setSalaryExpected(response.data.salaryExpected);
+      setHeight(response.data.height);
+      setWeight(response.data.weight);
+    });
+  }, []);
   return (
     <>
       <Navbar />
-      <form className="container-fluid">
-        <h2 className="text-center">Add Player</h2>
+      <form className="container-fluid" onSubmit={handleUpdate}>
+        <h2 className="text-center">Update Player</h2>
         <hr />
         <div className="row">
           <div className="col-6">
@@ -96,8 +111,8 @@ const AddPlayer = () => {
                     className="form-check-input"
                     name="optradio"
                     value={"MALE"}
-                    checked={gender === "MALE"}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "MALE"}
                   />
                   Male
                 </label>
@@ -109,8 +124,8 @@ const AddPlayer = () => {
                     className="form-check-input"
                     name="optradio"
                     value={"FEMALE"}
-                    checked={gender === "FEMALE"}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "FEMALE"}
                   />
                   Female
                 </label>
@@ -122,8 +137,8 @@ const AddPlayer = () => {
                     className="form-check-input"
                     name="optradio"
                     value={"NON_BINARY"}
-                    checked={gender === "NON_BINARY"}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "NON_BINARY"}
                   />
                   Non-binary
                 </label>
@@ -198,9 +213,8 @@ const AddPlayer = () => {
                   color: "white",
                   border: "none",
                 }}
-                onClick={(e) => handleCreate(e)}
               >
-                Save
+                Update
               </button>
             </a>
             <span>&nbsp;</span>
@@ -222,5 +236,4 @@ const AddPlayer = () => {
       </form>
     </>
   );
-};
-export default AddPlayer;
+}

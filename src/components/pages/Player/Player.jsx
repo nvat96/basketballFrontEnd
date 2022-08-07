@@ -24,7 +24,12 @@ export default function Player() {
   const handleDelete = (id) => {
     console.log("Printing id", id);
     playerService.remove(id).then((response) => {
-      console.log("Player deleted successfully", response.data);
+      console.log(response.data);
+      
+    }).then(() => {
+      playerService.getAll().then((response) => {
+        setPlayer(response.data);
+      })
     });
   };
   return (
@@ -32,7 +37,7 @@ export default function Player() {
       <Navbar></Navbar>
       <h2 className="text-center">Players List</h2>
       <div className="container d-flex justify-content-center mt-0">
-        <a href="http://localhost:3000/player/add">
+        <a href="/player/add">
           <Button text={"Add player"} bgColor={"#590DA0"} />
         </a>
       </div>
@@ -52,17 +57,14 @@ export default function Player() {
                 <td>{player.id}</td>
                 <td>{player.playerName}</td>
                 <td className="d-flex justify-content-center">
-                  <a href={`http://localhost:3000/player/view/${player.id}`}>
+                  <a href={`/player/view/${player.id}`}>
                   <Button text={"View"} bgColor={"#093B6B"} />
                   </a>
-                  {/* <Button text={"View"} bgColor={"#093B6B"} /> */}
                   <span>&nbsp;</span>
-                  <a href={`http://localhost:3000/player/update/${player.id}`}>
+                  <a href={`/player/update/${player.id}`}>
                     <Button text={"Update"} bgColor={"#09186D"} />
                   </a>
-                  {/* <Button text={"Update"} bgColor={"#09186D"} /> */}
                   <span>&nbsp;</span>
-                  <a href="http://localhost:3000/player">
                     <button
                       className="btn btn-primary"
                       style={{ backgroundColor: "#6D095A", color: "white", border:"none" }}
@@ -72,14 +74,7 @@ export default function Player() {
                     >
                       Delete
                     </button>
-                  </a>
-                  {/* <Button
-                    text={"Delete"}
-                    bgColor={"#6D095A"}
-                    onClick={() => {
-                      handleDelete(player.id);
-                    }}
-                  /> */}
+                  
                 </td>
               </tr>
             ))}
@@ -87,7 +82,7 @@ export default function Player() {
         </table>
       </div>
       <div className="container d-flex justify-content-center mt-0">
-        <a href="http://localhost:3000/player">
+        <a href="/player">
           <Button text={"Back to top"} bgColor={"#590DA0"} />
         </a>
       </div>

@@ -1,19 +1,16 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
 import agentService from "../../services/agent.service";
-import Button from "../../share/Button";
 import Navbar from "../../share/Navbar";
 
 const AddAgent = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState("MALE");
+  const [gender, setGender] = useState("");
   const [nationality, setNationality] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const { id } = useParams;
-  const saveAgent = (e) => {
+  const handleCreate = (e) => {
     e.preventDefault();
     const agent = {
       firstName: firstName,
@@ -24,46 +21,15 @@ const AddAgent = () => {
       phoneNumber: phoneNumber,
       email: email,
     };
-
-    if (id) {
-      agentService
-        .update(id, agent)
-        .then((response) => {
-          console.log("Agent data updated successfully", response.data);
-        })
-        .catch((error) => {
-          console.log("Something went wrong", error);
-        });
-    } else {
-      agentService
-        .create(agent)
-        .then((response) => {
-          console.log("Agent added successfully", response.data);
-        })
-        .catch((error) => {
-          console.log("Something went wrong", error);
-        });
-    }
+    agentService
+      .create(agent)
+      .then((response) => {
+        console.log("Agent added successfully", response.data);
+      })
+      .catch((error) => {
+        console.log("Something went wrong", error);
+      });
   };
-  useEffect(() => {
-    if (id) {
-      console.log(+id);
-      agentService
-        .get(id)
-        .then((agent) => {
-          setFirstName(agent.data.firstName);
-          setLastName(agent.data.lastName);
-          setGender(agent.data.gender);
-          setNationality(agent.data.nationality);
-          setDateOfBirth(agent.data.dateOfBirth);
-          setPhoneNumber(agent.data.phoneNumber);
-          setEmail(agent.data.email);
-        })
-        .catch((error) => {
-          console.log("Something went wrong", error);
-        });
-    }
-  }, []);
   return (
     <>
       <Navbar />
@@ -112,7 +78,6 @@ const AddAgent = () => {
                     name="optradio"
                     value={"MALE"}
                     onChange={(e) => setGender(e.target.value)}
-                    checked
                   />
                   Male
                 </label>
@@ -176,29 +141,31 @@ const AddAgent = () => {
             </div>
           </div>
           <div className="container d-flex justify-content-center mt-0">
-            <a href="http://localhost:3000/agent">
+            <button
+              type="submit"
+              className="btn"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+              onClick={(e) => handleCreate(e)}
+            >
+              Save
+            </button>
+
+            <span>&nbsp;</span>
+            <a href="/agent">
               <button
+                type="button"
                 className="btn"
                 style={{
                   backgroundColor: "#5D096B",
                   color: "white",
                   border: "none",
                 }}
-                onClick={(e) => saveAgent(e)}
-              >
-                Save
-              </button>
+              >Return</button>
             </a>
-            {/* Button as a component */}
-            {/* <Button
-              text={"Save"}
-              bgColor={"#5D096B"}
-              onClick={(e) => saveAgent(e)}
-            /> */}
-            <span>&nbsp;</span>
-            {/* <a href="http://localhost:3000/agent">
-              <Button bgColor={"#1A096B"} text={"Return"} />
-            </a> */}
           </div>
         </div>
       </form>
