@@ -12,6 +12,7 @@ export default function Team() {
   }, []);
   const handleDelete = (name) => {
     teamService.remove(name).then(() => {
+      console.log("Deleted");
       teamService.getAll().then((response) => {
         setTeam(response.data);
       });
@@ -39,38 +40,43 @@ export default function Team() {
           </tr>
         </thead>
         <tbody>
-          {team.map((team) => (
-            <tr key={team.name}>
-              <td>{team.name}</td>
-              <td>{team.location}</td>
-              <td>{team.league}</td>
-              <td>{team.arenaName}</td>
-              <td>{team.dateFound}</td>
-              <td className="d-flex justify-content-center">
-                <a href={`/team/view/${team.name}`}>
-                  <Button text={"View"} bgColor={"#093B6B"} />
-                </a>
-                <span>&nbsp;</span>
-                <a href={`/team/update/${team.name}`}>
-                  <Button text={"Update"} bgColor={"#09186D"} />
-                </a>
-                <span>&nbsp;</span>
-                <button
-                  className="btn"
-                  style={{
-                    backgroundColor: "#6D095A",
-                    color: "white",
-                    border: "none",
-                  }}
-                  onClick={() => {
-                    handleDelete(team.name);
-                  }}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
+          {
+            (team.sort(function (a, b) {
+              return a.name.localeCompare(b.name);
+            }),
+            team.map((team) => (
+              <tr key={team.name}>
+                <td>{team.name}</td>
+                <td>{team.location}</td>
+                <td>{team.league}</td>
+                <td>{team.arenaName}</td>
+                <td>{team.dateFound}</td>
+                <td className="d-flex justify-content-center">
+                  <a href={`/team/view/${team.name}`}>
+                    <Button text={"View"} bgColor={"#093B6B"} />
+                  </a>
+                  <span>&nbsp;</span>
+                  <a href={`/team/update/${team.name}`}>
+                    <Button text={"Update"} bgColor={"#09186D"} />
+                  </a>
+                  <span>&nbsp;</span>
+                  <button
+                    className="btn"
+                    style={{
+                      backgroundColor: "#6D095A",
+                      color: "white",
+                      border: "none",
+                    }}
+                    onClick={() => {
+                      handleDelete(team.name);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            )))
+          }
         </tbody>
       </table>
       <div className="container d-flex justify-content-center mt-0">

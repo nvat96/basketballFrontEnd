@@ -17,4 +17,4 @@ const remove = (name) =>{
 }
 
 const teamService = { getAll, create, get, update, remove }
-export default teamService
+export default teamService;

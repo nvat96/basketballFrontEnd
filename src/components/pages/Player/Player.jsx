@@ -54,35 +54,40 @@ export default function Player() {
             </tr>
           </thead>
           <tbody>
-            {player.map((player) => (
-              <tr key={player.id}>
-                <td>{player.id}</td>
-                <td>{player.playerName}</td>
-                <td className="d-flex justify-content-center">
-                  <a href={`/player/view/${player.id}`}>
-                    <Button text={"View"} bgColor={"#093B6B"} />
-                  </a>
-                  <span>&nbsp;</span>
-                  <a href={`/player/update/${player.id}`}>
-                    <Button text={"Update"} bgColor={"#09186D"} />
-                  </a>
-                  <span>&nbsp;</span>
-                  <button
-                    className="btn btn-primary"
-                    style={{
-                      backgroundColor: "#6D095A",
-                      color: "white",
-                      border: "none",
-                    }}
-                    onClick={() => {
-                      handleDelete(player.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {
+              (player.sort(function (a, b) {
+                return a.id - b.id;
+              }),
+              player.map((player) => (
+                <tr key={player.id}>
+                  <td>{player.id}</td>
+                  <td>{player.playerName}</td>
+                  <td className="d-flex justify-content-center">
+                    <a href={`/player/view/${player.id}`}>
+                      <Button text={"View"} bgColor={"#093B6B"} />
+                    </a>
+                    <span>&nbsp;</span>
+                    <a href={`/player/update/${player.id}`}>
+                      <Button text={"Update"} bgColor={"#09186D"} />
+                    </a>
+                    <span>&nbsp;</span>
+                    <button
+                      className="btn btn-primary"
+                      style={{
+                        backgroundColor: "#6D095A",
+                        color: "white",
+                        border: "none",
+                      }}
+                      onClick={() => {
+                        handleDelete(player.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              )))
+            }
           </tbody>
         </table>
       </div>

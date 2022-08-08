@@ -14,6 +14,9 @@ import ViewAgent from "./components/pages/Agent/ViewAgent.js";
 import Team from "./components/pages/Team/Team.js";
 import AddTeam from "./components/pages/Team/AddTeam.js";
 import ViewTeam from "./components/pages/Team/ViewTeam.js";
+import PlayerContract from "./components/pages/PlayerContract/PlayerContract.js";
+import AddPlayerContract from "./components/pages/PlayerContract/AddPlayerContract.js";
+import ViewPlayerContract from "./components/pages/PlayerContract/ViewPlayerContract.js";
 
 function App() {
   return (
@@ -34,6 +37,10 @@ function App() {
           <Route exact path="/team/add" element={<AddTeam/>}/>
           <Route exact path="/team/update/:name" element={<AddTeam />}/>
           <Route exact path="/team/view/:name" element={<ViewTeam/>}/>
+          <Route exact path="/playerContract" element={<PlayerContract/>}/>
+          <Route exact path="/playerContract/add" element={<AddPlayerContract/>}/>
+          <Route exact path="/playerContract/update/:id" element={<AddPlayerContract/>}/>
+          <Route exact path="/playerContract/view/:id" element={<ViewPlayerContract/>}/>
         </Routes>
       </BrowserRouter>
     </div>

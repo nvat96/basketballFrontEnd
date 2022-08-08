@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import teamService from "../../services/team.service";
 import Navbar from "../../share/Navbar";
 
 export default function AddTeam() {
-  const urlString = useLocation().pathname;
-  const teamName = urlString.slice(
-    urlString.lastIndexOf("/") + 1,
-    urlString.length
-  );
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [league, setLeague] = useState("NBA");
@@ -16,8 +12,8 @@ export default function AddTeam() {
   const [dateFound, setDateFound] = useState("");
   const [salaryCap, setSalaryCap] = useState("");
   const [action, setAction] = useState("Add");
-  const [buttonAction, setButtonAction] = useState("Save")
-
+  const [buttonAction, setButtonAction] = useState("Save");
+  const teamName = useParams().name;
   const team = {
     name: name,
     location: location,
@@ -27,24 +23,33 @@ export default function AddTeam() {
     salaryCap: salaryCap,
   };
   useEffect(() => {
-    if(teamName){
-        teamService.get(teamName).then((response)=>{
-            setName(response.data.name);
-            setLocation(response.data.location);
-            setLeague(response.data.league);
-            setArenaName(response.data.arena.name);
-            setDateFound(response.data.dateFound);
-            setSalaryCap(response.data.salaryCap);
-            setAction("Update");
-            setButtonAction("Update");
-        })
+    console.log(teamName);
+    if (teamName) {
+      teamService.get(teamName).then((response) => {
+        setName(response.data.name);
+        setLocation(response.data.location);
+        setLeague(response.data.league);
+        setArenaName(response.data.arena.name);
+        setDateFound(response.data.dateFound);
+        setSalaryCap(response.data.salaryCap);
+        setAction("Update");
+        setButtonAction("Update");
+      });
     }
   }, []);
 
   const handleCreate = (e) => {
     e.preventDefault();
-    teamService.create(team);
-    
+    if (teamName) {
+      teamService.update(teamName, team).then(() => {
+        console.log("Updated");
+        navigate("/team");
+      });
+    } else
+      teamService.create(team).then(() => {
+        console.log("Created");
+        navigate("/team");
+      });
   };
   return (
     <>
@@ -122,34 +127,31 @@ export default function AddTeam() {
             </div>
           </div>
           <div className="container d-flex justify-content-center mt-0">
-            <a href="/team">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#5D096B",
-                  color: "white",
-                  border: "none",
-                }}
-                onClick={(e) => handleCreate(e)}
-              >
-                {buttonAction}
-              </button>
-            </a>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+              onClick={(e) => handleCreate(e)}
+            >
+              {buttonAction}
+            </button>
             <span>&nbsp;</span>
-            <a href="/team">
-              <button
-                type="button"
-                className="btn"
-                style={{
-                  backgroundColor: "#5D096B",
-                  color: "white",
-                  border: "none",
-                }}
-              >
-                Return
-              </button>
-            </a>
+            <button
+              type="button"
+              className="btn"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+              onClick={() => navigate("/team")}
+            >
+              Return
+            </button>
           </div>
         </div>
       </form>

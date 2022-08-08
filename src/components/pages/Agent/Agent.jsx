@@ -51,37 +51,42 @@ export default function Agent() {
             </tr>
           </thead>
           <tbody>
-            {agent.map((agent) => (
-              <tr key={agent.id}>
-                <td>{agent.id}</td>
-                <td>{agent.agentName}</td>
-                <td>{agent.email}</td>
-                <td className="d-flex justify-content-center">
-                  <a href={`/agent/view/${agent.id}`}>
-                    <Button text={"View"} bgColor={"#093B6B"} />
-                  </a>
+            {
+              (agent.sort(function (a, b) {
+                return a.id - b.id;
+              }),
+              agent.map((agent) => (
+                <tr key={agent.id}>
+                  <td>{agent.id}</td>
+                  <td>{agent.agentName}</td>
+                  <td>{agent.email}</td>
+                  <td className="d-flex justify-content-center">
+                    <a href={`/agent/view/${agent.id}`}>
+                      <Button text={"View"} bgColor={"#093B6B"} />
+                    </a>
 
-                  <span>&nbsp;</span>
-                  <a href={`/agent/update/${agent.id}`}>
-                    <Button text={"Update"} bgColor={"#09186D"} />
-                  </a>
-                  <span>&nbsp;</span>
-                  <button
-                    className="btn btn-primary"
-                    style={{
-                      backgroundColor: "#6D095A",
-                      color: "white",
-                      border: "none",
-                    }}
-                    onClick={() => {
-                      handleDelete(agent.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+                    <span>&nbsp;</span>
+                    <a href={`/agent/update/${agent.id}`}>
+                      <Button text={"Update"} bgColor={"#09186D"} />
+                    </a>
+                    <span>&nbsp;</span>
+                    <button
+                      className="btn btn-primary"
+                      style={{
+                        backgroundColor: "#6D095A",
+                        color: "white",
+                        border: "none",
+                      }}
+                      onClick={() => {
+                        handleDelete(agent.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              )))
+            }
           </tbody>
         </table>
       </div>

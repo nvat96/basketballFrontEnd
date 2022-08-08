@@ -37,7 +37,7 @@ function Navbar() {
                     Team
                   </a>
                   <a className="dropdown-item" href="/nothing">
-                    Team Achivement
+                    Team Achievement
                   </a>
                   <a className="dropdown-item" href="/nothing">
                     Arena
@@ -61,7 +61,7 @@ function Navbar() {
                   <a className="dropdown-item" href="/player">
                     Player
                   </a>
-                  <a className="dropdown-item" href="/nothing">
+                  <a className="dropdown-item" href="/playerContract">
                     Player Contract
                   </a>
                   <a className="dropdown-item" href="/nothing">
