@@ -1,5 +1,7 @@
-.container {
-  margin-top: 100px;
+
+.container{
+    margin-top: 14vh;
+
 }
 hr {
   border: none;
@@ -26,16 +28,19 @@ tbody tr:hover {
   background-color: #590da0;
   color: white;
 }
-.coming-soon {
-  margin-top: 100px;
-  height: auto;
-  width: auto;
-  max-width: 500px !important;
-  max-height: 500px !important;
+
+.coming-soon{
+    margin-top: 14vh;
+    height: auto; 
+    width: auto; 
+    max-width: 500px !important; 
+    max-height: 500px !important;
+
 }
 .playerDetail td:nth-of-type(odd){
     font-weight: 650;
 }
 .playerDetail{
     border: 0px !important;
+
 }

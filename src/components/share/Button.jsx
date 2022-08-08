@@ -1,7 +1,9 @@
 import React from "react";
 
 export default function Button(props) {
-  const clickEvent = () => {};
+  // const clickEvent = () => {
+  //   props.onClick();
+  // };
   return (
     <button
       className="btn btn-primary"
@@ -10,7 +12,7 @@ export default function Button(props) {
         color: props.textColor,
         border: props.border,
       }}
-      onClick={clickEvent}
+      // onClick={() => props.onClick}
     >
       {props.text}
     </button>

@@ -1,8 +1,11 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import agentService from "../../services/agent.service";
 import Navbar from "../../share/Navbar";
 
-const AddAgent = () => {
+export default function UpdateAgent() {
+  const urlString = useLocation().pathname;
+  const id = urlString.slice(urlString.lastIndexOf("/") + 1, urlString.length);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
@@ -10,31 +13,36 @@ const AddAgent = () => {
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const handleCreate = (e) => {
-    e.preventDefault();
-    const agent = {
-      firstName: firstName,
-      lastName: lastName,
-      gender: gender,
-      nationality: nationality,
-      dateOfBirth: dateOfBirth,
-      phoneNumber: phoneNumber,
-      email: email,
-    };
-    agentService
-      .create(agent)
-      .then((response) => {
-        console.log("Agent added successfully", response.data);
-      })
-      .catch((error) => {
-        console.log("Something went wrong", error);
-      });
+
+  const agent = {
+    firstName: firstName,
+    lastName: lastName,
+    gender: gender,
+    nationality: nationality,
+    dateOfBirth: dateOfBirth,
+    phoneNumber: phoneNumber,
+    email: email,
+  };
+  useEffect(() => {
+    agentService.get(id).then((response) => {
+      setFirstName(response.data.firstName);
+      setLastName(response.data.lastName);
+      setGender(response.data.gender);
+      setNationality(response.data.nationality);
+      setDateOfBirth(response.data.dateOfBirth);
+      setPhoneNumber(response.data.phoneNumber);
+      setEmail(response.data.email);
+    });
+  }, []);
+
+  const handleUpdate = () => {
+    agentService.update(id, agent);
   };
   return (
     <>
       <Navbar />
       <form className="container-fluid">
-        <h2 className="text-center">Add Agent</h2>
+        <h2 className="text-center">Update Agent</h2>
         <hr />
         <div className="row">
           <div className="col-6">
@@ -78,6 +86,7 @@ const AddAgent = () => {
                     name="optradio"
                     value={"MALE"}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "MALE"}
                   />
                   Male
                 </label>
@@ -90,6 +99,7 @@ const AddAgent = () => {
                     name="optradio"
                     value={"FEMALE"}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "FEMALE"}
                   />
                   Female
                 </label>
@@ -102,6 +112,7 @@ const AddAgent = () => {
                     name="optradio"
                     value={"NON_BINARY"}
                     onChange={(e) => setGender(e.target.value)}
+                    checked={gender === "NON_BINARY"}
                   />
                   Non-binary
                 </label>
@@ -149,11 +160,10 @@ const AddAgent = () => {
                 color: "white",
                 border: "none",
               }}
-              onClick={(e) => handleCreate(e)}
+              onClick={(e) => handleUpdate(e)}
             >
-              Save
+              Update
             </button>
-
             <span>&nbsp;</span>
             <a href="/agent">
               <button
@@ -164,13 +174,13 @@ const AddAgent = () => {
                   color: "white",
                   border: "none",
                 }}
-              >Return</button>
+              >
+                Return
+              </button>
             </a>
-
           </div>
         </div>
       </form>
     </>
   );
-};
-export default AddAgent;
+}

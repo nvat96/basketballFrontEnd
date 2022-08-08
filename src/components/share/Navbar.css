@@ -7,10 +7,12 @@
   font-size: xx-large;
 }
 
-.logo {
-  max-width: 70px;
-  height: auto;
+
+.logo{
+    max-width: 11vh;
+    height: auto;
 }
+
 .nav-link {
   color: white;
 }
