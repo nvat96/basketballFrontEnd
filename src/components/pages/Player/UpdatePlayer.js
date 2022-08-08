@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import playerService from "../../services/player.service";
 import Navbar from "../../share/Navbar";
 
 export default function UpdatePlayer() {
+  const navigate = useNavigate();
   const urlString = useLocation().pathname;
   const id = urlString.slice(urlString.lastIndexOf("/") + 1, urlString.length);
   const [firstName, setFirstName] = useState("");
@@ -33,8 +34,9 @@ export default function UpdatePlayer() {
 
     playerService
       .update(id, player)
-      .then((response) => {
-        console.log("Player updated successfully", response.data);
+      .then(() => {
+        console.log("Updated");
+        navigate("/player");
       })
       .catch((error) => {
         console.log("Something went wrong", error);
@@ -204,33 +206,30 @@ export default function UpdatePlayer() {
           </div>
 
           <div className="container d-flex justify-content-center mt-0">
-            <a href="/player">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#5D096B",
-                  color: "white",
-                  border: "none",
-                }}
-              >
-                Update
-              </button>
-            </a>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+            >
+              Update
+            </button>
             <span>&nbsp;</span>
-            <a href="/player">
-              <button
-                type="button"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#5D096B",
-                  color: "white",
-                  border: "none",
-                }}
-              >
-                Return
-              </button>
-            </a>
+            <button
+              type="button"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+              onClick={() => navigate("/player")}
+            >
+              Return
+            </button>
           </div>
         </div>
       </form>

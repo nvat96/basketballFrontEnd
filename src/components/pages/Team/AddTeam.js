@@ -127,20 +127,18 @@ export default function AddTeam() {
             </div>
           </div>
           <div className="container d-flex justify-content-center mt-0">
-            <a href="/team">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#5D096B",
-                  color: "white",
-                  border: "none",
-                }}
-                onClick={(e) => handleCreate(e)}
-              >
-                {buttonAction}
-              </button>
-            </a>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+              onClick={(e) => handleCreate(e)}
+            >
+              {buttonAction}
+            </button>
             <span>&nbsp;</span>
             <button
               type="button"

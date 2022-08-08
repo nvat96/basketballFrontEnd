@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import playerService from "../../services/player.service";
 import Navbar from "../../share/Navbar";
 
 const AddPlayer = () => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
@@ -31,8 +33,9 @@ const AddPlayer = () => {
 
     playerService
       .create(player)
-      .then((response) => {
-        console.log("Player added successfully", response.data);
+      .then(() => {
+        console.log("Created");
+        navigate("/player");
       })
       .catch((error) => {
         console.log("Something went wrong", error);
@@ -42,7 +45,7 @@ const AddPlayer = () => {
   return (
     <>
       <Navbar />
-      <form className="container-fluid">
+      <form className="container-fluid" onSubmit={handleCreate}>
         <h2 className="text-center">Add Player</h2>
         <hr />
         <div className="row">
@@ -189,36 +192,32 @@ const AddPlayer = () => {
           </div>
 
           <div className="container d-flex justify-content-center mt-0">
-            <a href="/player">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#5D096B",
-                  color: "white",
-                  border: "none",
-                }}
-                onClick={(e) => handleCreate(e)}
-              >
-                Save
-              </button>
-            </a>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+            >
+              Save
+            </button>
+
             <span>&nbsp;</span>
 
-            <a href="/player">
-              <button
-                type="button"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#5D096B",
-                  color: "white",
-                  border: "none",
-                }}
-              >
-                Return
-              </button>
-
-            </a>
+            <button
+              type="button"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+              onClick={() => navigate("/player")}
+            >
+              Return
+            </button>
           </div>
         </div>
       </form>

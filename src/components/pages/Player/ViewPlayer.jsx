@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import playerService from "../../services/player.service";
 import Navbar from "../../share/Navbar.jsx";
 
 const ViewPlayer = () => {
+  const navigate = useNavigate();
   const urlString = useLocation().pathname;
   const id = urlString.slice(urlString.lastIndexOf("/") + 1, urlString.length);
   const [player, setPlayer] = useState({});
@@ -67,18 +68,17 @@ const ViewPlayer = () => {
         </tbody>
       </table>
       <div className="container d-flex justify-content-center mt-0">
-        <a href="/player">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#5D096B",
-              color: "white",
-              border: "none",
-            }}
-          >
-            Return
-          </button>
-        </a>
+        <button
+          className="btn"
+          style={{
+            backgroundColor: "#5D096B",
+            color: "white",
+            border: "none",
+          }}
+          onClick={() => navigate("/player")}
+        >
+          Return
+        </button>
       </div>
     </>
   );

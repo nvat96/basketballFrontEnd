@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import agentService from "../../services/agent.service";
 import Navbar from "../../share/Navbar";
 
 const AddAgent = () => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("");
@@ -23,8 +25,9 @@ const AddAgent = () => {
     };
     agentService
       .create(agent)
-      .then((response) => {
-        console.log("Agent added successfully", response.data);
+      .then(() => {
+        console.log("Created");
+        navigate("/agent");
       })
       .catch((error) => {
         console.log("Something went wrong", error);
@@ -33,7 +36,7 @@ const AddAgent = () => {
   return (
     <>
       <Navbar />
-      <form className="container-fluid">
+      <form className="container-fluid" onSubmit={handleCreate}>
         <h2 className="text-center">Add Agent</h2>
         <hr />
         <div className="row">
@@ -149,24 +152,23 @@ const AddAgent = () => {
                 color: "white",
                 border: "none",
               }}
-              onClick={(e) => handleCreate(e)}
             >
               Save
             </button>
 
             <span>&nbsp;</span>
-            <a href="/agent">
-              <button
-                type="button"
-                className="btn"
-                style={{
-                  backgroundColor: "#5D096B",
-                  color: "white",
-                  border: "none",
-                }}
-              >Return</button>
-            </a>
-
+            <button
+              type="button"
+              className="btn"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+              onClick={() => navigate("/agent")}
+            >
+              Return
+            </button>
           </div>
         </div>
       </form>

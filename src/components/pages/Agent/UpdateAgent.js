@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import agentService from "../../services/agent.service";
 import Navbar from "../../share/Navbar";
 
 export default function UpdateAgent() {
+  const navigate = useNavigate();
   const urlString = useLocation().pathname;
   const id = urlString.slice(urlString.lastIndexOf("/") + 1, urlString.length);
   const [firstName, setFirstName] = useState("");
@@ -36,12 +37,15 @@ export default function UpdateAgent() {
   }, []);
 
   const handleUpdate = () => {
-    agentService.update(id, agent);
+    agentService.update(id, agent).then(() => {
+      console.log("Updated");
+      navigate("/agent");
+    });
   };
   return (
     <>
       <Navbar />
-      <form className="container-fluid">
+      <form className="container-fluid" onSubmit={handleUpdate}>
         <h2 className="text-center">Update Agent</h2>
         <hr />
         <div className="row">
@@ -160,24 +164,22 @@ export default function UpdateAgent() {
                 color: "white",
                 border: "none",
               }}
-              onClick={(e) => handleUpdate(e)}
             >
               Update
             </button>
             <span>&nbsp;</span>
-            <a href="/agent">
-              <button
-                type="button"
-                className="btn"
-                style={{
-                  backgroundColor: "#5D096B",
-                  color: "white",
-                  border: "none",
-                }}
-              >
-                Return
-              </button>
-            </a>
+            <button
+              type="button"
+              className="btn"
+              style={{
+                backgroundColor: "#5D096B",
+                color: "white",
+                border: "none",
+              }}
+              onClick={() => navigate("/agent")}
+            >
+              Return
+            </button>
           </div>
         </div>
       </form>

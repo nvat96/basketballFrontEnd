@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import agentService from "../../services/agent.service";
 import Navbar from "../../share/Navbar";
 export default function ViewAgent() {
+  const navigate = useNavigate();
   const urlString = useLocation().pathname;
   const id = urlString.slice(urlString.lastIndexOf("/") + 1, urlString.length);
   const [agent, setAgent] = useState({});
@@ -52,18 +53,17 @@ export default function ViewAgent() {
         </tbody>
       </table>
       <div className="container d-flex justify-content-center mt-0">
-        <a href="/agent">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "#5D096B",
-              color: "white",
-              border: "none",
-            }}
-          >
-            Return
-          </button>
-        </a>
+        <button
+          className="btn"
+          style={{
+            backgroundColor: "#5D096B",
+            color: "white",
+            border: "none",
+          }}
+          onClick={() => navigate("/agent")}
+        >
+          Return
+        </button>
       </div>
     </>
   );
