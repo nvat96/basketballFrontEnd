@@ -11,7 +11,7 @@ const ViewPlayer = () => {
     playerService
       .get(Number(id))
       .then((response) => {
-        console.log("Printin player data", response.data);
+        console.log("Printing player data", response.data);
         setPlayer(response.data);
       })
       .catch((error) => {
@@ -24,7 +24,7 @@ const ViewPlayer = () => {
   // const gender =
   return (
     <>
-      <div className="cotainer-fluid">
+      <div className="container-fluid">
         <Navbar></Navbar>
         <h2 className="text-center">Player detail</h2>
         <div className="table table-bordered d-flex flex-column align-items-center playerDetail mb-0">
